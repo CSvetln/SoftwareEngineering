@@ -13,6 +13,6 @@ fun helpOut() {
 fun main(args: Array<String>) {
     if(args.isEmpty())
         helpOut()
-    if((args.isNotEmpty()) and (args.contains("-h")))
+    if ((args.isNotEmpty()) and (args[0]=="-h"))
         helpOut()
 }
