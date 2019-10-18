@@ -26,5 +26,5 @@ fun out(arr: Array<String>) {
     for (el in arr) {
         if (el.isNotEmpty())
             println(el)
-}
+    }
 }
