@@ -4,7 +4,7 @@ fun helpOut() {
             """Приложение аутентифицирует пользователя по логину и паролю
         Коды возврата:
         0 - успех
-        1 - справка
+        1 - справка  
         2 - неверный формат логина
         3 - неизвестный логин 
         4 - неправильный пароль """
@@ -12,5 +12,7 @@ fun helpOut() {
 }
 fun main(args: Array<String>) {
     if(args.isEmpty())
+        helpOut()
+    if((args.isNotEmpty()) and (args.contains("-h")))
         helpOut()
 }
