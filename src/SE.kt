@@ -22,9 +22,3 @@ fun main(args: Array<String>) {
     }
 
 }
-fun out(arr: Array<String>) { //вывод
-    for (el in arr) {
-        if (el.isNotEmpty())
-            println(el)
-    }
-}

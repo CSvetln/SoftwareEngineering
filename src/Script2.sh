@@ -1,11 +1,12 @@
 #! /bin/bash
 kotlinc Main.kt -include-runtime -d app.jar
-echo Запуск без параметров Expected: 1
-java -jar app.jar
-echo Вывод справки через -h Expected: 1
-java -jar app.jar -h
-#echo Обычный тест -login admin -pass admin Expected: 0
-#java -jar app.jar -login admin -pass admin
+#echo Запуск без параметров Expected: 1
+#java -jar app.jar
+#echo Вывод справки через -h Expected: 1
+#java -jar app.jar "-h"
+
+echo Обычный тест -login admin -pass admin Expected: 0
+java -jar app.jar "-login" "admin" "-pass" "admin"
 #echo Граничный тест -pass admin -login admin Expected: 0
 #java -jar app.jar -pass admin -login admin
 #echo Ошибочные тесты
