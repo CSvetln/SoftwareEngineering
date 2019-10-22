@@ -1,63 +1,88 @@
 fun main(args: Array<String>) {
-  /*  for(p in args){
-        println(p)
-    }
-    print(args.size)*/
-    if(args.isNullOrEmpty())
-        helpOut()
-    if(args[0]=="-h")
-        helpOut()
+    try {
 
-    val users = listOf(User("admin", "admin"), User("user1", "user"))
-    if(args.size==4) {
-       if ((args[0] == "-login") and (args[2] == "-pass")) {
-           for (u in users)
-           if ((args[1]==u.login) and (args[3]==u.pass))
-               print(0)
+        //val str = readLine().toString()
+       // val args1 = str.split(" ").toTypedArray()
+        val par = Params(args)
+        val validService = ValidateService()
+
+        if(par.isHelp)
+            helpOut()
+        else {
+            if(!validService.isLoginValid(par.login))
+                println(2)
+            else{
+                val us: User = validService.findUser(par.login)!!
+                if (validService.isPassCorrect(us, par.pass))
+                    println(0)
+                else
+                    println(4)
+            }
         }
+    }
+    catch (e: KotlinNullPointerException)
+    {
+        println(3)
     }
 }
 
-class Params(args: Array<String>)
-{
-    var login:String =""
-    var pass:String=""
-    var isHelp: Boolean =false
 
-    init{
-        if(args.size==4) {
-            login = args[1]
-            pass = args[3]
+class Params(args: Array<String>) {
+    var login: String = ""
+    var pass: String = ""
+    var isHelp: Boolean = false
+
+    init {
+        if(args.isNotEmpty()) {
+            if (args[0] == "-h")
+                isHelp = true
+            else {
+                if ((args[0] == "-login") and (args[2] == "-pass")) {
+                    login = args[1]
+                    pass = args[3]
+                }
+                else if ((args[2] == "-login") and (args[0] == "-pass")) {
+                    login = args[3]
+                    pass = args[1]
+                }
+            }
         }
-        if(args[0]=="-h")
-            isHelp=true
-
+        else
+            isHelp = true
     }
 }
-class ValidateServise(val logins:List<String>)
-{
-    val pat =Regex("""[0-9a-z]+""")
+
+val users = listOf(User("admin", "admin"), User("user1", "user"))
+
+class ValidateService {
+    private val pat =Regex("""[0-9a-z]+""")
+
     fun isLoginValid(login: String):Boolean
     {
        return login.matches(pat)
     }
-    fun findUser(login: String):Boolean
-    {
-        for(log in logins) {
-            return log == login
-        }
-        return false
-    }
-   /* fun isPassCorrect(login: String, pass: String):Boolean
-    {
 
-    }*/
+    fun findUser(login: String):User?
+    {
+        for(user in users) {
+           if(user.login==login)
+               return user
+            }
+        return null
+    }
+
+    fun isPassCorrect(user:User, pass: String):Boolean
+    {
+      return pass==user.pass
+    }
+
 }
 
 data class User(val login:String, val pass:String)
+
 fun helpOut() {
     println("1")
-    println(
+   /* println(
             """Приложение аутентифицирует пользователя по логину и паролю
         Коды возврата:
         0 - успех
@@ -65,5 +90,5 @@ fun helpOut() {
         2 - неверный формат логина
         3 - неизвестный логин 
         4 - неправильный пароль """
-    )
+    )*/
 }
