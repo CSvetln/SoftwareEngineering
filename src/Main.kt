@@ -1,8 +1,10 @@
+import java.security.MessageDigest
+import kotlin.experimental.and
+
+
 fun main(args: Array<String>) {
     try {
 
-        //val str = readLine().toString()
-       // val args1 = str.split(" ").toTypedArray()
         val par = Params(args)
         val validService = ValidateService()
 
@@ -13,7 +15,8 @@ fun main(args: Array<String>) {
                 println(2)
             else{
                 val us: User = validService.findUser(par.login)!!
-                if (validService.isPassCorrect(us, par.pass))
+
+                if (validService.isPassCorrect(us, par.hash))
                     println(0)
                 else
                     println(4)
@@ -29,7 +32,7 @@ fun main(args: Array<String>) {
 
 class Params(args: Array<String>) {
     var login: String = ""
-    var pass: String = ""
+    var hash: String = ""
     var isHelp: Boolean = false
 
     init {
@@ -39,11 +42,11 @@ class Params(args: Array<String>) {
             else {
                 if ((args[0] == "-login") and (args[2] == "-pass")) {
                     login = args[1]
-                    pass = args[3]
+                    hash = getHash(args[3])
                 }
                 else if ((args[2] == "-login") and (args[0] == "-pass")) {
                     login = args[3]
-                    pass = args[1]
+                    hash = getHash(args[1])
                 }
             }
         }
@@ -52,7 +55,8 @@ class Params(args: Array<String>) {
     }
 }
 
-val users = listOf(User("admin", "admin"), User("user1", "user"))
+val users = listOf(User("admin", getHash("admin")), User("user1", getHash("user")))
+
 
 class ValidateService {
     private val pat =Regex("""[0-9a-z]+""")
@@ -71,18 +75,28 @@ class ValidateService {
         return null
     }
 
-    fun isPassCorrect(user:User, pass: String):Boolean
+    fun isPassCorrect(user:User, hash: String):Boolean
     {
-      return pass==user.pass
+      return hash.equals(user.hash)
     }
 
 }
+fun getHash(pass:String):String{
 
-data class User(val login:String, val pass:String)
+    val md = MessageDigest.getInstance("MD5")
+    md.update(pass.toByteArray());
+    val byteData:ByteArray = md.digest();
+    val sb = StringBuffer()
+    for (aByteData in byteData) {
+        sb.append(Integer.toString((aByteData and 0xff.toByte()) + 0x100, 16).substring(1))
+    }
+    return sb.toString()
+}
+data class User(val login:String, val hash:String)
 
 fun helpOut() {
     println("1")
-   /* println(
+ println(
             """Приложение аутентифицирует пользователя по логину и паролю
         Коды возврата:
         0 - успех
@@ -90,5 +104,6 @@ fun helpOut() {
         2 - неверный формат логина
         3 - неизвестный логин 
         4 - неправильный пароль """
-    )*/
+    )
+
 }
