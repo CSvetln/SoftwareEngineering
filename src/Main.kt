@@ -1,8 +1,6 @@
-package com.Main.SoftwareEngineering
-
 import java.security.MessageDigest
 import kotlin.experimental.and
-import com.Auten.SoftwareEngineering.*
+import kotlin.system.exitProcess
 
 
 fun main(args: Array<String>) {
@@ -14,18 +12,18 @@ fun main(args: Array<String>) {
         if (par.isHelp)
             helpOut()
         else if (!validService.isLoginValid(par.login))
-            println(2)
+            exitProcess(2)
         else {
             val us: User = validService.findUser(par.login)!!
 
             if (validService.isPassCorrect(us, par.hash))
-                println(0)
+                exitProcess(0)
             else
-                println(4)
+                exitProcess(4)
         }
 
     } catch (e: KotlinNullPointerException) {
-        println(3)
+        exitProcess(3)
     }
 }
 
@@ -92,15 +90,5 @@ fun getHash(pass: String): String {
 data class User(val login: String, val hash: String)
 
 fun helpOut() {
-    println("1")
-    println(
-            """Приложение аутентифицирует пользователя по логину и паролю
-        Коды возврата:
-        0 - успех
-        1 - справка  
-        2 - неверный формат логина
-        3 - неизвестный логин 
-        4 - неправильный пароль """
-    )
-
+    exitProcess(1)
 }

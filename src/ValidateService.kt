@@ -1,7 +1,3 @@
-package com.Auten.SoftwareEngineering
-
-import com.Main.SoftwareEngineering.users
-
 class ValidateService {
     private val pat = Regex("""[0-9a-z]+""")
 
