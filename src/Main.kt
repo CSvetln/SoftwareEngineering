@@ -22,8 +22,6 @@ fun main(args: Array<String>) {
 
         !validService.isPassCorrect(us, par.hash) -> exitProcess(4)
     }
-
-
 }
 
 

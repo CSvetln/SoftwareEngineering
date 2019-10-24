@@ -14,6 +14,6 @@ class ValidateService {
     }
 
     fun isPassCorrect(user: User?, hash: String): Boolean {
-        return hash==user?.hash
+        return hash == user?.hash
     }
 }

@@ -1,12 +1,18 @@
 #! /bin/bash
-
-#kotlinc src/Main.kt -include-runtime -d app.jar
+kotlinc src/Main.kt -include-runtime -d app.jar
 echo Запуск без параметров Expected: 1
 java -jar app.jar
 echo $?
 echo Вывод справки через -h Expected: 1
 java -jar app.jar "-h"
 echo $?
+echo Тест -login Expected: 1
+java -jar app.jar "-login" "admin"
+echo $?
+echo Тест blahblah Expected: 1
+java -jar app.jar "blahblah"
+echo $?
+echo Обычный тест -login admin -pass admin Expected: 0
 echo Обычный тест -login admin -pass admin Expected: 0
 java -jar app.jar "-login" "admin" "-pass" "admin"
 echo $?
