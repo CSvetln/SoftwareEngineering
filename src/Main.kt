@@ -1,4 +1,5 @@
 package com.Main.SoftwareEngineering
+
 import java.security.MessageDigest
 import kotlin.experimental.and
 import com.Auten.SoftwareEngineering.*
@@ -12,18 +13,17 @@ fun main(args: Array<String>) {
 
         if (par.isHelp)
             helpOut()
+        else if (!validService.isLoginValid(par.login))
+            println(2)
         else {
-            if (!validService.isLoginValid(par.login))
-                println(2)
-            else {
-                val us: User = validService.findUser(par.login)!!
+            val us: User = validService.findUser(par.login)!!
 
-                if (validService.isPassCorrect(us, par.hash))
-                    println(0)
-                else
-                    println(4)
-            }
+            if (validService.isPassCorrect(us, par.hash))
+                println(0)
+            else
+                println(4)
         }
+
     } catch (e: KotlinNullPointerException) {
         println(3)
     }
