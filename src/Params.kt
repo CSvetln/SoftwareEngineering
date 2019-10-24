@@ -1,23 +1,35 @@
 class Params(args: Array<String>) {
-    var login: String = ""
-    var hash: String = ""
-    var isHelp: Boolean = false
+    val login: String
+    val hash: String
+    val isHelp: Boolean
 
     init {
-        if (args.isNotEmpty()) {
-            when {
-                args[0] == "-h" -> isHelp = true
-                (args[0] == "-login") and (args[2] == "-pass") -> {
-                    login = args[1]
-                    hash = getHash(args[3])
-                }
-                (args[2] == "-login") and (args[0] == "-pass") -> {
-                    login = args[3]
-                    hash = getHash(args[1])
-                }
+        when {
+            args.isNullOrEmpty() -> {
+                isHelp = true
+                login = ""
+                hash = ""
             }
-
-        } else
-            isHelp = true
+            args[0] == "-h" -> {
+                isHelp = true
+                login = ""
+                hash = ""
+            }
+            (args[0] == "-login") and (args[2] == "-pass") -> {
+                login = args[1]
+                hash = getHash(args[3])
+                isHelp = false
+            }
+            (args[2] == "-login") and (args[0] == "-pass") -> {
+                login = args[3]
+                hash = getHash(args[1])
+                isHelp = false
+            }
+            else -> {
+                login = ""
+                hash = ""
+                isHelp = false
+            }
+        }
     }
 }
