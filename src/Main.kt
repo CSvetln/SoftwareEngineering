@@ -1,5 +1,7 @@
+package com.Main.SoftwareEngineering
 import java.security.MessageDigest
 import kotlin.experimental.and
+import com.Auten.SoftwareEngineering.*
 
 
 fun main(args: Array<String>) {
