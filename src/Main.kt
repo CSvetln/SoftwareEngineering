@@ -14,7 +14,7 @@ fun main(args: Array<String>) {
                 par.hash
         ))) -> exitProcess(0)
 
-        par.isHelp ->    exitProcess(1)
+        par.isHelp -> exitProcess(1)
 
         !validService.isLoginValid(par.login) -> exitProcess(2)
 
@@ -81,9 +81,9 @@ fun getHash(pass: String): String {
     val byteData: ByteArray = md.digest();
     val sb = StringBuffer()
     for (aByteData in byteData) {
-        sb.append(Integer.toString((aByteData and 0xff.toByte()) + 0x100, 16).substring(1))
+        sb.append(((aByteData and 0xff.toByte()) + 0x100).toString(16).substring(1)) //переводим в шестнадцитиричную сс
     }
-    return sb.toString()
+    return sb.toString()// возращаем хеш в строковом виде
 }
 
 
