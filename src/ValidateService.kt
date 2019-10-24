@@ -1,5 +1,5 @@
 class ValidateService {
-    private val pat = Regex("""[0-9a-z]+""")
+    private val pat = Regex("[0-9a-z]+")
 
     fun isLoginValid(login: String): Boolean {
         return login.matches(pat)
