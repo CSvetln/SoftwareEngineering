@@ -1,3 +1,7 @@
+package com.Auten.SoftwareEngineering
+
+import main.getHash
+
 class Params(args: Array<String>) {
     val login: String
     val hash: String

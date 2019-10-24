@@ -1,6 +1,8 @@
+package main
 import java.security.MessageDigest
 import kotlin.experimental.and
 import kotlin.system.exitProcess
+import com.Auten.SoftwareEngineering.*
 
 
 fun main(args: Array<String>) {
