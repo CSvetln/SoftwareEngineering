@@ -4,27 +4,26 @@ import kotlin.system.exitProcess
 
 
 fun main(args: Array<String>) {
-    try {
 
-        val par = Params(args)
-        val validService = ValidateService()
+    val par = Params(args)
+    val validService = ValidateService()
+    val us: User? = validService.findUser(par.login)
+    when {
+        ((us != null) and (validService.isLoginValid(par.login)) and (validService.isPassCorrect(
+                us,
+                par.hash
+        ))) -> exitProcess(0)
 
-        if (par.isHelp)
-            helpOut()
-        else if (!validService.isLoginValid(par.login))
-            exitProcess(2)
-        else {
-            val us: User = validService.findUser(par.login)!!
+        par.isHelp ->    exitProcess(1)
 
-            if (validService.isPassCorrect(us, par.hash))
-                exitProcess(0)
-            else
-                exitProcess(4)
-        }
+        !validService.isLoginValid(par.login) -> exitProcess(2)
 
-    } catch (e: KotlinNullPointerException) {
-        exitProcess(3)
+        us == null -> exitProcess(3)
+
+        !validService.isPassCorrect(us, par.hash) -> exitProcess(4)
     }
+
+
 }
 
 
@@ -87,8 +86,4 @@ fun getHash(pass: String): String {
     return sb.toString()
 }
 
-data class User(val login: String, val hash: String)
 
-fun helpOut() {
-    exitProcess(1)
-}
