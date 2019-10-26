@@ -1,8 +1,9 @@
-package main
+package com.main.softawareengineering
 import java.security.MessageDigest
 import kotlin.experimental.and
 import kotlin.system.exitProcess
-import com.Auten.SoftwareEngineering.*
+import com.auten.softwareengineering.*
+
 
 
 fun main(args: Array<String>) {
@@ -25,54 +26,7 @@ fun main(args: Array<String>) {
         !validService.isPassCorrect(us, par.hash) -> exitProcess(4)
     }
 }
-
-
-class Params(args: Array<String>) {
-    var login: String = ""
-    var hash: String = ""
-    var isHelp: Boolean = false
-
-    init {
-        if (args.isNotEmpty()) {
-            if (args[0] == "-h")
-                isHelp = true
-            else {
-                if ((args[0] == "-login") and (args[2] == "-pass")) {
-                    login = args[1]
-                    hash = getHash(args[3])
-                } else if ((args[2] == "-login") and (args[0] == "-pass")) {
-                    login = args[3]
-                    hash = getHash(args[1])
-                }
-            }
-        } else
-            isHelp = true
-    }
-}
-
 val users = listOf(User("admin", getHash("admin")), User("user1", getHash("user")))
-
-
-class ValidateService {
-    private val pat = Regex("""[0-9a-z]+""")
-
-    fun isLoginValid(login: String): Boolean {
-        return login.matches(pat)
-    }
-
-    fun findUser(login: String): User? {
-        for (user in users) {
-            if (user.login == login)
-                return user
-        }
-        return null
-    }
-
-    fun isPassCorrect(user: User, hash: String): Boolean {
-        return hash.equals(user.hash)
-    }
-
-}
 
 fun getHash(pass: String): String {
 
@@ -85,5 +39,7 @@ fun getHash(pass: String): String {
     }
     return sb.toString()// возращаем хеш в строковом виде
 }
+
+
 
 

@@ -1,5 +1,5 @@
 #! /bin/bash
-kotlinc src/Main.kt -include-runtime -d app.jar
+kotlinc src/com -include-runtime -d app.jar
 echo Запуск без параметров Expected: 1
 java -jar app.jar
 echo $?
