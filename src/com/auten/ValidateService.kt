@@ -1,8 +1,8 @@
 package com.auten.softwareengineering
 
-import com.main.softawareengineering.users
+class ValidateService(_listUsers: List<User>) {
+    private val listUsers: List<User> = _listUsers
 
-class ValidateService {
     private val pat = Regex("[0-9a-z]+")
 
     fun isLoginValid(login: String): Boolean {
@@ -10,7 +10,7 @@ class ValidateService {
     }
 
     fun findUser(login: String): User? {
-        for (user in users) {
+        for (user in listUsers) {
             if (user.login == login)
                 return user
         }

@@ -1,6 +1,6 @@
 package com.auten.softwareengineering
 
-import com.main.softawareengineering.getHash
+import com.main.softwareengineering.getHash
 
 class Params(args: Array<String>) {
     val login: String

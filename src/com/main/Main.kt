@@ -1,4 +1,4 @@
-package com.main.softawareengineering
+package com.main.softwareengineering
 
 import java.security.MessageDigest
 import kotlin.experimental.and
@@ -8,7 +8,7 @@ import com.auten.softwareengineering.*
 fun main(args: Array<String>) {
 
     val par = Params(args)
-    val validService = ValidateService()
+    val validService = ValidateService(users)
     val us: User? = validService.findUser(par.login)
     when {
         ((us != null) and (validService.isLoginValid(par.login)) and (validService.isPassCorrect(
