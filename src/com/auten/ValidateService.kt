@@ -17,7 +17,7 @@ class ValidateService(_listUsers: List<User>) {
         return null
     }
 
-    fun isPassCorrect(user: User?, hash: String): Boolean {
-            return hash == user?.hash
+    fun isPassCorrect(user: User?, hash: String, salt: String?): Boolean {
+            return Hasher.getHash(hash+salt) == Hasher.getHash(user?.hash+salt);
     }
 }

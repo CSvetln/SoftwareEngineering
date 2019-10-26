@@ -12,7 +12,8 @@ fun main(args: Array<String>) {
     when {
         ((us != null) and (validService.isLoginValid(par.login)) and (validService.isPassCorrect(
                 us,
-                par.hash
+                par.hash,
+                us?.salt
         ))) -> exitProcess(0)
 
         par.isHelp -> exitProcess(1)
@@ -21,14 +22,14 @@ fun main(args: Array<String>) {
 
         us == null -> exitProcess(3)
 
-        !validService.isPassCorrect(us, par.hash) -> exitProcess(4)
+        !validService.isPassCorrect(us, par.hash, us.salt) -> exitProcess(4)
     }
 }
 
 
 val users = listOf(
-        User("admin", Hasher.getHash("admin")),
-        User("user1", Hasher.getHash("user"))
+        User("admin", Hasher.getHash("admin"), "salt1"),
+        User("user1", Hasher.getHash("user"), "salt2")
 )
 
 
