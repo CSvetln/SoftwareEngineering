@@ -1,4 +1,5 @@
 package com.auten.softwareengineering
+
 import com.main.softawareengineering.getHash
 
 class Params(args: Array<String>) {

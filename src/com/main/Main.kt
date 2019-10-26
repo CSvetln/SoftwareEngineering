@@ -1,10 +1,9 @@
 package com.main.softawareengineering
+
 import java.security.MessageDigest
 import kotlin.experimental.and
 import kotlin.system.exitProcess
 import com.auten.softwareengineering.*
-
-
 
 fun main(args: Array<String>) {
 
@@ -26,6 +25,7 @@ fun main(args: Array<String>) {
         !validService.isPassCorrect(us, par.hash) -> exitProcess(4)
     }
 }
+
 val users = listOf(User("admin", getHash("admin")), User("user1", getHash("user")))
 
 fun getHash(pass: String): String {
