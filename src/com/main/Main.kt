@@ -1,7 +1,5 @@
 package com.main.softwareengineering
 
-import java.security.MessageDigest
-import kotlin.experimental.and
 import kotlin.system.exitProcess
 import com.auten.softwareengineering.*
 
@@ -10,6 +8,7 @@ fun main(args: Array<String>) {
     val par = Params(args)
     val validService = ValidateService(users)
     val us: User? = validService.findUser(par.login)
+
     when {
         ((us != null) and (validService.isLoginValid(par.login)) and (validService.isPassCorrect(
                 us,
@@ -26,19 +25,14 @@ fun main(args: Array<String>) {
     }
 }
 
-val users = listOf(User("admin", getHash("admin")), User("user1", getHash("user")))
 
-fun getHash(pass: String): String {
+val users = listOf(
+        User("admin", Hasher.getHash("admin")),
+        User("user1", Hasher.getHash("user"))
+)
 
-    val md = MessageDigest.getInstance("MD5")
-    md.update(pass.toByteArray());
-    val byteData: ByteArray = md.digest();
-    val sb = StringBuffer()
-    for (aByteData in byteData) {
-        sb.append(((aByteData and 0xff.toByte()) + 0x100).toString(16).substring(1)) //переводим в шестнадцитиричную сс
-    }
-    return sb.toString()// возращаем хеш в строковом виде
-}
+
+
 
 
 

@@ -1,7 +1,5 @@
 package com.auten.softwareengineering
 
-import com.main.softwareengineering.getHash
-
 class Params(args: Array<String>) {
     val login: String
     val hash: String
@@ -22,11 +20,11 @@ class Params(args: Array<String>) {
             (args.size == 4) -> {
                 if (isForward(args)) {
                     login = args[1]
-                    hash = getHash(args[3])
+                    hash = Hasher.getHash(args[3])
                     isHelp = false
                 } else {
                     login = args[3]
-                    hash = getHash(args[1])
+                    hash = Hasher.getHash(args[1])
                     isHelp = false
                 }
             }
