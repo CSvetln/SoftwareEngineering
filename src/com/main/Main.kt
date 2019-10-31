@@ -31,6 +31,11 @@ val users = listOf(
         User("admin", Hasher.getHash("admin"), "salt1"),
         User("user1", Hasher.getHash("user"), "salt2")
 )
+val accesses = listOf(
+        Access("admin", Roles.WRITE, "АВ"),
+        Access("admin", Roles.READ, "AB.C"),
+        Access("User1", Roles.EXECUTE, "AB.CD.E")
+)
 
 
 
