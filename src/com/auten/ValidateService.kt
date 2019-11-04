@@ -20,4 +20,11 @@ class ValidateService(_listUsers: List<User>) {
     fun isPassCorrect(user: User?, hash: String, salt: String?): Boolean {
             return Hasher.getHash(hash+salt) == Hasher.getHash(user?.hash+salt);
     }
+    fun isRoleExist (role: String):Boolean{
+        for(rol in Roles.values()) {
+            if(rol.toString() == role)
+                return true
+        }
+        return false
+    }
 }
