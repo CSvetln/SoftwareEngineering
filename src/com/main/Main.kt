@@ -6,9 +6,8 @@ import com.auten.softwareengineering.*
 fun main(args: Array<String>) {
 
     val par = Params(args)
-    val validService = ValidateService(users)
+    val validService = ValidateService(users, accesses)
     val us: User? = validService.findUser(par.login)
-
     when {
         ((us != null) and (validService.isLoginValid(par.login)) and (validService.isPassCorrect(
                 us,
