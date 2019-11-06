@@ -32,9 +32,27 @@ class ValidateService(_listUsers: List<User>, _listAccesses: List<Access>) {
 
     fun isUserHasRole(login: String, role: Roles, res: String): Boolean {
         for (access in listAccesses) {
-            if ((login == access.login) and (role == access.role) and (res == access.res))
+            if ((login == access.login) and
+                (isResAccess(
+                        access.res.split(".").toTypedArray(),
+                        res.split(".").toTypedArray()
+                )
+                        and (role == access.role))
+            )
                 return true
         }
         return false
     }
+
+    private fun isResAccess(res1: Array<String>, res2: Array<String>): Boolean {
+        return if (res1.size <= res2.size) {
+            var n = 0
+            for ((i, m) in res1.withIndex()) {
+                if (m == res2[i])
+                    n++
+            }
+            n == res1.size
+        } else false
+    }
+
 }
