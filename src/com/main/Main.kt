@@ -17,10 +17,10 @@ fun main(args: Array<String>) {
 
             !validService.isPassCorrect(us, par.hash, us.salt) -> exitProcess(4)
 
-            (par.res != "") and (par.role != "") and !validService.isRoleExist(par.role) -> exitProcess(5)
+            !par.isAvtorization() and !validService.isRoleExist(par.role) -> exitProcess(5)
 
             validService.isRoleExist(par.role) ->
-                if ((par.res != "") and (par.role != "") and !validService.isUserHasRole(
+                if (!par.isAvtorization() and !validService.isUserHasRole(
                             par.login,
                             Roles.valueOf(par.role),
                             par.res

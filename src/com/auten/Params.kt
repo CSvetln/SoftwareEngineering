@@ -46,5 +46,8 @@ class Params(args: Array<String>) {
             }
         }
     }
+
+    fun isAvtorization() = (res == "") and (role == "")
+
 }
 
