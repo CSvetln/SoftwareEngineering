@@ -8,13 +8,8 @@ class ValidateService(private val listUsers: List<User>, private val listAccesse
         return login.matches(pat)
     }
 
-    fun findUser(login: String): User? {
-        for (user in listUsers) {
-            if (user.login == login)
-                return user
-        }
-        return null
-    }
+    fun findUser(login: String)=  listUsers.find { it.login==login }
+
 
     fun isPassCorrect(user: User?, hash: String, salt: String?): Boolean {
         return Hasher.getHash(hash + salt) == Hasher.getHash(user?.hash + salt);
