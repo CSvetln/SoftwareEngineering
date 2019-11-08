@@ -7,23 +7,23 @@ fun main(args: Array<String>) {
     try {
         val par = Params(args)
         val validService = ValidateService(users, accesses)
-        val us: User? = validService.findUser(par.login)
+        val us: User? = validService.findUser(par.login!!)
         when {
-            par.isHelp -> exitProcess(1)
+            par.isHelp!! -> exitProcess(1)
 
-            !validService.isLoginValid(par.login) -> exitProcess(2)
+            !validService.isLoginValid(par.login!!) -> exitProcess(2)
 
             us == null -> exitProcess(3)
 
-            !validService.isPassCorrect(us, par.hash, us.salt) -> exitProcess(4)
+            !validService.isPassCorrect(us, par.hash!!, us.salt) -> exitProcess(4)
 
-            !par.isAvtorization() and !validService.isRoleExist(par.role) -> exitProcess(5)
+            !par.isAvtorization() and !validService.isRoleExist(par.role!!) -> exitProcess(5)
 
-            validService.isRoleExist(par.role) ->
+            validService.isRoleExist(par.role!!) ->
                 if (!par.isAvtorization() and !validService.isUserHasRole(
-                            par.login,
-                            Roles.valueOf(par.role),
-                            par.res
+                            par.login!!,
+                            Roles.valueOf(par.role!!),
+                            par.res!!
                     )
                 )
                     exitProcess(6)
