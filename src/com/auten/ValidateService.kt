@@ -1,8 +1,6 @@
 package com.auten.softwareengineering
 
-class ValidateService(_listUsers: List<User>, _listAccesses: List<Access>) {
-    private val listUsers = _listUsers
-    private val listAccesses = _listAccesses
+class ValidateService(private val listUsers: List<User>, private val listAccesses: List<Access>) {
 
     private val pat = Regex("[0-9a-z]+")
 
