@@ -17,9 +17,9 @@ fun main(args: Array<String>) {
 
             !validService.isPassCorrect(us, par.hash!!, us.salt) -> exitProcess(4)
 
-            !par.isAvtorization() and !validService.isRoleExist(par.role!!) -> exitProcess(5)
+            !par.isAvtorization() and !isRoleExist(par.role!!) -> exitProcess(5)
 
-            validService.isRoleExist(par.role!!) ->
+            isRoleExist(par.role!!) ->
                 if (!par.isAvtorization() and !validService.isUserHasRole(
                             par.login!!,
                             Roles.valueOf(par.role!!),
