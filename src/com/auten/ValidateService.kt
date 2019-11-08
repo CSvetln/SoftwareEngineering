@@ -4,11 +4,10 @@ class ValidateService(private val listUsers: List<User>, private val listAccesse
 
     private val pat = Regex("[0-9a-z]+")
 
-    fun isLoginValid(login: String): Boolean {
-        return login.matches(pat)
-    }
+    fun isLoginValid(login: String) = login.matches(pat)
 
-    fun findUser(login: String)=  listUsers.find { it.login==login }
+
+    fun findUser(login: String) = listUsers.find { it.login == login }
 
 
     fun isPassCorrect(user: User?, hash: String, salt: String?): Boolean {
