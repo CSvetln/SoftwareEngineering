@@ -33,13 +33,11 @@ class ValidateService(private val listUsers: List<User>, private val listAccesse
 
     private fun isResAccess(res1: Array<String>, res2: Array<String>): Boolean {
         return if (res1.size <= res2.size) {
-            var n = 0
             for ((i, m) in res1.withIndex()) {
-                if (m == res2[i])
-                    n++
+                if (m != res2[i])
+                    false
             }
-            n == res1.size
+            true
         } else false
     }
-
 }
