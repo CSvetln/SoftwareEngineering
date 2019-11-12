@@ -21,12 +21,11 @@ class ValidateService(private val listUsers: List<User>, private val listAccesse
         return false
     }
 
-    private fun isResAccess(res1: String, res2: String): Boolean {
-        return isResAccess(
-                res1.split('.').toTypedArray(),
-                res2.split('.').toTypedArray()
-        )
-    }
+    private fun isResAccess(res1: String, res2: String) = isResAccess(
+            res1.split('.').toTypedArray(),
+            res2.split('.').toTypedArray()
+    )
+
 
     private fun isResAccess(res1: Array<String>, res2: Array<String>): Boolean {
         return if (res1.size > res2.size)
