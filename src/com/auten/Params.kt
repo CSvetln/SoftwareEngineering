@@ -1,19 +1,50 @@
 package com.auten.softwareengineering
 
+import com.main.softwareengineering.accesses
+import com.main.softwareengineering.users
 import kotlinx.cli.*
 
-class Params(args: Array<String>) {
+class Params(private val args: Array<String>) {
+    private val isHelp:Boolean
     private val parser = ArgParser("example")
-    val login by parser.option(ArgType.String, shortName = "login")
-    val hash by parser.option(ArgType.String, shortName = "pass")
-    val isHelp by parser.option(ArgType.Boolean, shortName = "-h")
-    val res by parser.option(ArgType.String, shortName = "res")
-    val role by parser.option(ArgType.String, shortName = "role")
+    private val login by parser.option(ArgType.String, shortName = "login").default(" ")
+    private val pass by parser.option(ArgType.String, shortName = "pass").default(" ")
+    private val res by parser.option(ArgType.String, shortName = "res").default(" ")
+    private val role by parser.option(ArgType.String, shortName = "role").default(" ")
 
     init {
         parser.parse(args)
+        isHelp = args.isNullOrEmpty() or (args.size == 1)
     }
+    private val validService = ValidateService(users, accesses)
 
-    fun isAvtorization() = (res == null) and (role == null)
+    fun avtorization(): Int {
+        return if (args.size >= 4) {
+            val us: User? = validService.findUser(login)
+            when {
+                isHelp -> 1
+
+                !validService.isLoginValid(login) -> 2
+
+                us == null -> 3
+
+                !validService.isPassCorrect(us, pass) -> 4
+
+                else -> 0
+            }
+        } else 1
+    }
+    fun autentification():Int
+    {
+        return if(args.size==8) {
+            when {
+                !Roles.isRoleExist(role) -> 5
+
+                !validService.isUserHasRole(login, Roles.valueOf(role), res) -> 6
+
+                else -> 0
+            }
+        } else 0
+    }
 }
 
