@@ -15,11 +15,12 @@ class ValidateService(private val listUsers: List<User>, private val listAccesse
 
     fun isUserHasRole(login: String, role: Roles, res: String): Boolean {
         for (access in listAccesses) {
-            if ((login == access.login) and (isResAccess(access.res, res)) and (role == access.role))
+            if (isAnd(login == access.login, isResAccess(access.res, res), role == access.role))
                 return true
         }
         return false
     }
+    fun isAnd(a:Boolean, b:Boolean, c:Boolean) = a and b and c
 
     private fun isResAccess(res1: String, res2: String) = isResAccess(
             res1.split('.').toTypedArray(),
