@@ -1,55 +1,99 @@
 #! /bin/bash
 kotlinc -cp kotlinx-cli-jvm-0.2.0-SNAPSHOT.jar src/com -include-runtime -d app.jar
-echo Обычные
+amountDefTests=0
+amountSucTests=0
+ex0=0
+ex5=5
+ex6=6
+res=0
 
-echo Тест -login admin -pass admin -res АВ -role WRITE
-echo Expected: 0
 ./run.sh "-login" "admin" "-pass" "admin" "-res" "AB" "-role" "WRITE"
-echo $?
-echo Тест -login admin -pass admin -res АВ.C -role READ
-echo Expected: 0
+res=$?
+let amountDefTests=amountDefTests+1
+if [ $ex0 -eq $res ]; then
+  let amountSucTests=amountSucTests+1
+fi
+
 ./run.sh "-login" "admin" "-pass" "admin" "-res" "AB.C" "-role" "READ"
-echo $?
-echo Тест -login user1 -pass user -res AB.CD.E -role EXECUTE
-echo Expected: 0
+res=$?
+let amountDefTests=amountDefTests+1
+if [ $ex0 -eq $res ]; then
+  let amountSucTests=amountSucTests+1
+fi
+
 ./run.sh "-login" "user1" "-pass" "user" "-res" "AB.CD.E" "-role" "EXECUTE"
-echo $?
+res=$?
+let amountDefTests=amountDefTests+1
+if [ $ex0 -eq $res ]; then
+  let amountSucTests=amountSucTests+1
+fi
 
-echo Граничные
-echo Тест -login admin -pass admin -res АВ.CD -role WRITE
-echo Expected: 0
 ./run.sh "-login" "admin" "-pass" "admin" "-res" "AB.CD" "-role" "WRITE"
-echo $?
-echo Тест -login admin -pass admin -res АВ.CD.E -role WRITE
-echo Expected: 0
-./run.sh "-login" "admin" "-pass" "admin" "-res" "AB.CD.E" "-role" "WRITE"
-echo $?
-echo Тест -login admin -pass admin -role WRITE -res АВ
-echo Expected: 0
-./run.sh "-login" "admin" "-pass" "admin" "-role" "WRITE" "-res" "AB"
-echo $?
-echo Тест -login admin -pass admin -role WRITE
-echo Expected: 0
-./run.sh "-login" "admin" "-pass" "admin" "-role" "WRITE"
-echo $?
-echo Тест -res АВ.CD -role WRITE -login admin -pass admin
-echo Expected: 0
-./run.sh "-res" "AB.CD" "-role" "WRITE" "-login" "admin" "-pass" "admin"
-echo $?
+res=$?
+let amountDefTests=amountDefTests+1
+if [ $ex0 -eq $res ]; then
+  let amountSucTests=amountSucTests+1
+fi
 
-echo Ошибочные
-echo Тест -login admin -pass admin -res АВ -role WRREAD
-echo Expected: 5
+./run.sh "-login" "admin" "-pass" "admin" "-res" "AB.CD.E" "-role" "WRITE"
+res=$?
+let amountDefTests=amountDefTests+1
+if [ $ex0 -eq $res ]; then
+  let amountSucTests=amountSucTests+1
+fi
+
+./run.sh "-login" "admin" "-pass" "admin" "-role" "WRITE" "-res" "AB"
+res=$?
+let amountDefTests=amountDefTests+1
+if [ $ex0 -eq $res ]; then
+  let amountSucTests=amountSucTests+1
+fi
+
+./run.sh "-login" "admin" "-pass" "admin" "-role" "WRITE"
+res=$?
+let amountDefTests=amountDefTests+1
+if [ $ex0 -eq $res ]; then
+  let amountSucTests=amountSucTests+1
+fi
+
+./run.sh "-res" "AB.CD" "-role" "WRITE" "-login" "admin" "-pass" "admin"
+res=$?
+let amountDefTests=amountDefTests+1
+if [ $ex0 -eq $res ]; then
+  let amountSucTests=amountSucTests+1
+fi
+
 ./run.sh "-login" "admin" "-pass" "admin" "-res" "AB" "-role" "WRREAD"
-echo $?
-echo Тест -login user1 -pass user -res АВ -role EXECUTE
-echo Expected: 6
+res=$?
+if [ $ex5 -eq $res ]; then
+  let amountSucTests=amountSucTests+1
+fi
+let amountDefTests=amountDefTests+1
+
 ./run.sh "-login" "user1" "-pass" "user" "-res" "AB" "-role" "EXECUTE"
-echo $?
-echo Тест login user1 -pass user -res АВ -role READ
-echo Expected: 6
+res=$?
+let amountDefTests=amountDefTests+1
+if [ $ex6 -eq $res ]; then
+  let amountSucTests=amountSucTests+1
+fi
+
 ./run.sh "-login" "user1" "-pass" "user" "-res" "AB" "-role" "READ"
-echo $?
+res=$?
+let amountDefTests=amountDefTests+1
+if [ $ex6 -eq $res ]; then
+  let amountSucTests=amountSucTests+1
+fi
+
+echo Количество тестов
+echo $amountDefTests
+echo Количество успешных тестов
+echo $amountSucTests
+if [ $amountDefTests -ne $amountSucTests ]; then
+  echo ExitProcess 1
+else
+  echo ExitProcess 0
+fi
+
 
 
 
