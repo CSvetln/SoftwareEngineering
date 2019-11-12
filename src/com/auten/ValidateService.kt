@@ -10,10 +10,8 @@ class ValidateService(private val listUsers: List<User>, private val listAccesse
     fun findUser(login: String) = listUsers.find { it.login == login }
 
 
-    fun isPassCorrect(user: User?, hash: String, salt: String?): Boolean {
-        return Hasher.getHash(hash + salt) == Hasher.getHash(user?.hash + salt);
-    }
-
+    fun isPassCorrect(user: User, pass: String) =
+        Hasher.getHash(Hasher.getHash(pass) + user.salt) == Hasher.getHash(user.hash + user.salt)
 
     fun isUserHasRole(login: String, role: Roles, res: String): Boolean {
         for (access in listAccesses) {
@@ -30,12 +28,11 @@ class ValidateService(private val listUsers: List<User>, private val listAccesse
         )
     }
 
-
     private fun isResAccess(res1: Array<String>, res2: Array<String>): Boolean {
         return if (res1.size <= res2.size) {
             for ((i, m) in res1.withIndex()) {
                 if (m != res2[i])
-                    false
+                    return false
             }
             true
         } else false
