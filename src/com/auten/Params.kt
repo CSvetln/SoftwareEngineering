@@ -5,7 +5,7 @@ import com.main.softwareengineering.users
 import kotlinx.cli.*
 
 class Params(private val args: Array<String>) {
-    private val isHelp:Boolean
+    private val isHelp: Boolean
     private val parser = ArgParser("example")
     private val login by parser.option(ArgType.String, shortName = "login").default(" ")
     private val pass by parser.option(ArgType.String, shortName = "pass").default(" ")
@@ -16,10 +16,13 @@ class Params(private val args: Array<String>) {
         parser.parse(args)
         isHelp = args.isNullOrEmpty() or (args.size == 1)
     }
+
     private val validService = ValidateService(users, accesses)
 
     fun avtorization(): Int {
-        return if (args.size >= 4) {
+        return if (args.size < 4)
+            1
+        else {
             val us: User? = validService.findUser(login)
             when {
                 isHelp -> 1
@@ -32,11 +35,13 @@ class Params(private val args: Array<String>) {
 
                 else -> 0
             }
-        } else 1
+        }
     }
-    fun autentification():Int
-    {
-        return if(args.size==8) {
+
+    fun autentification(): Int {
+        return if (args.size != 8)
+            0
+        else {
             when {
                 !Roles.isRoleExist(role) -> 5
 
@@ -44,7 +49,7 @@ class Params(private val args: Array<String>) {
 
                 else -> 0
             }
-        } else 0
+        }
     }
 }
 
