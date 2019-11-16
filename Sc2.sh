@@ -56,3 +56,13 @@ let amountDefTests=amountDefTests+1
 if [ $ex7 -eq $res ]; then
   let amountSucTests=amountSucTests+1
 fi
+
+echo Количество тестов
+echo $amountDefTests
+echo Количество успешных тестов
+echo $amountSucTests
+if [ $amountDefTests -ne $amountSucTests ]; then
+  echo ExitProcess 1
+else
+  echo ExitProcess 0
+fi
