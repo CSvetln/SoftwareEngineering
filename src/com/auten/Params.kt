@@ -3,9 +3,9 @@ package com.auten.softwareengineering
 import com.main.softwareengineering.accesses
 import com.main.softwareengineering.users
 import kotlinx.cli.*
+import java.lang.Exception
 import java.time.LocalDate
-import java.time.format.DateTimeFormatter
-import java.util.*
+import kotlin.system.exitProcess
 
 class Params(private val args: Array<String>) {
     private val isHelp: Boolean
@@ -16,14 +16,19 @@ class Params(private val args: Array<String>) {
     private val role by parser.option(ArgType.String, shortName = "role").default(" ")
     private val dss by parser.option(ArgType.String, shortName = "ds").default(" ")
     private val dee by parser.option(ArgType.String, shortName = "de").default(" ")
-    private val vol by parser.option(ArgType.Int, shortName= "vol").default(0)
+    private val voll by parser.option(ArgType.String, shortName= "vol").default(" ")
     private var ds:LocalDate?
     private var de:LocalDate?
+    private var vol:Int?
 
     private val validService = ValidateService(users, accesses)
 
     init {
-        parser.parse(args)
+        try {
+            parser.parse(args)
+        } catch (e: Exception) {
+            exitProcess(1)
+        }
         isHelp = args.isNullOrEmpty() or (args.size == 1)
         if (validService.isDateValid(dss))
             ds = LocalDate.parse(dss)
@@ -33,10 +38,25 @@ class Params(private val args: Array<String>) {
             de = LocalDate.parse(dee)
         else
             de = null
+        try {
+            vol = voll.toInt()
+        } catch (e: NumberFormatException) {
+            vol = null
+        }
     }
 
+    fun accounting() {
+        if (args.size != 14)
+            return
+        else {
+            when {
+                ds == null -> exitProcess(7)
+                de == null -> exitProcess(7)
+                vol == null ->exitProcess(7)
+            }
+        }
+    }
 
-    fun Any.isVolValid() = this is Int
 
     fun avtorization(): Int {
         return if (args.size < 4)
