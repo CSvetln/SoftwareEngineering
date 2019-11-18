@@ -11,7 +11,7 @@ echo Тест -login admin -pass admin -res АВ -role WRITE -ds 2015-12-01 -de 
 echo Expected: 0
 ./run.sh "-login" "admin" "-pass" "admin" "-res" "AB" "-role" "WRITE" "-ds" "2015-12-01" "-de" "2015-12-02" "-vol" "15"
 res=$?
-echo res
+echo $res
 let amountDefTests=amountDefTests+1
 if [ $ex0 -eq $res ]; then
   let amountSucTests=amountSucTests+1
@@ -22,7 +22,7 @@ echo Тест -login admin -pass admin -res АВ.C -role READ -ds 2015-12-02 -de
 echo Expected: 0
 ./run.sh "-login" "admin" "-pass" "admin" "-res" "AB.C" "-role" "READ" "-ds" "2015-12-02" "-de" "2015-12-01" "-vol" "15"
 res=$?
-echo res
+echo $res
 let amountDefTests=amountDefTests+1
 if [ $ex0 -eq $res ]; then
   let amountSucTests=amountSucTests+1
@@ -33,7 +33,7 @@ echo Тест -login admin -pass admin -res АВ.C -role READ -ds 2015 -de 2015 
 echo Expected: 7
 ./run.sh "-login" "admin" "-pass" "admin" "-res" "AB.C" "-role" "READ" "-ds" "2015" "-de" "2015" "-vol" "15"
 res=$?
-echo res
+echo $res
 let amountDefTests=amountDefTests+1
 if [ $ex7 -eq $res ]; then
   let amountSucTests=amountSucTests+1
@@ -42,7 +42,7 @@ echo Тест -login admin -pass admin -res АВ.C -role READ -ds 2015-12-02 -de
 echo Expected: 7
 ./run.sh "-login" "admin" "-pass" "admin" "-res" "AB.C" "-role" "READ" "-ds" "2015-12-02" "-de" "2015-12-01" "-vol" "0,2"
 res=$?
-echo res
+echo $res
 let amountDefTests=amountDefTests+1
 if [ $ex7 -eq $res ]; then
   let amountSucTests=amountSucTests+1
@@ -51,7 +51,7 @@ echo Тест -login admin -pass admin -res АВ.C -role READ -ds 2015-12-02 -de
 echo Expected: 7
 ./run.sh "-login" "admin" "-pass" "admin" "-res" "AB.C" "-role" "READ" "-ds" "2015-12-02" "-de" "2015-12-01" "-vol" "many"
 res=$?
-echo res
+echo $res
 let amountDefTests=amountDefTests+1
 if [ $ex7 -eq $res ]; then
   let amountSucTests=amountSucTests+1
