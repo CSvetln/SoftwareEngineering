@@ -1,21 +1,20 @@
 package com.main.softwareengineering
 
-import kotlin.system.exitProcess
 import com.auten.softwareengineering.*
 
 fun main(args: Array<String>) {
+
     try {
-       // val arg = arrayOf("-h")
         val par = Params(args)
-        var ex= par.avtorization()
-        if(ex==0)
-            ex = par.autentification()
-        exitProcess(ex)
+        par.avtorization()
+        par.autentification()
+        par.accounting()
 
     } catch (e: Exception) {
         println(e.message)
     }
 }
+
 
 val users = listOf(
         User("admin", Hasher.getHash("admin"), "salt1"),

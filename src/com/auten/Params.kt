@@ -16,10 +16,10 @@ class Params(private val args: Array<String>) {
     private val role by parser.option(ArgType.String, shortName = "role").default(" ")
     private val dss by parser.option(ArgType.String, shortName = "ds").default(" ")
     private val dee by parser.option(ArgType.String, shortName = "de").default(" ")
-    private val voll by parser.option(ArgType.String, shortName= "vol").default(" ")
-    private var ds:LocalDate?
-    private var de:LocalDate?
-    private var vol:Int?
+    private val voll by parser.option(ArgType.String, shortName = "vol").default(" ")
+    private var ds: LocalDate?
+    private var de: LocalDate?
+    private var vol: Int?
 
     private val validService = ValidateService(users, accesses)
 
@@ -52,41 +52,41 @@ class Params(private val args: Array<String>) {
             when {
                 ds == null -> exitProcess(7)
                 de == null -> exitProcess(7)
-                vol == null ->exitProcess(7)
+                vol == null -> exitProcess(7)
             }
         }
     }
 
 
-    fun avtorization(): Int {
-        return if (args.size < 4)
-            1
-        else {
+    fun avtorization() {
+        if (args.size < 4)
+            exitProcess(1)
+        else if (args.size == 4) {
             val us: User? = validService.findUser(login)
             when {
-                isHelp -> 1
+                isHelp -> exitProcess(1)
 
-                !validService.isLoginValid(login) -> 2
+                !validService.isLoginValid(login) -> exitProcess(2)
 
-                us == null -> 3
+                us == null -> exitProcess(3)
 
-                !validService.isPassCorrect(us, pass) -> 4
+                !validService.isPassCorrect(us, pass) -> exitProcess(4)
 
-                else -> 0
+                else -> exitProcess(0)
             }
         }
     }
 
-    fun autentification(): Int {
-        return if (args.size != 8)
-            0
+    fun autentification() {
+        if (args.size != 8)
+            return
         else {
             when {
-                !Roles.isRoleExist(role) -> 5
+                !Roles.isRoleExist(role) -> exitProcess(5)
 
-                !validService.isUserHasRole(login, Roles.valueOf(role), res) -> 6
+                !validService.isUserHasRole(login, Roles.valueOf(role), res) -> exitProcess(6)
 
-                else -> 0
+                else -> exitProcess(0)
             }
         }
     }
