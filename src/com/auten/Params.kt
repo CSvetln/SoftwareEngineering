@@ -12,12 +12,15 @@ class Params(private val args: Array<String>) {
     private val res by parser.option(ArgType.String, shortName = "res").default(" ")
     private val role by parser.option(ArgType.String, shortName = "role").default(" ")
 
+    private val validService = ValidateService(users, accesses)
+
     init {
         parser.parse(args)
         isHelp = args.isNullOrEmpty() or (args.size == 1)
     }
 
-    private val validService = ValidateService(users, accesses)
+
+    fun Any.isVolValid() = this is Int
 
     fun avtorization(): Int {
         return if (args.size < 4)
