@@ -2,60 +2,34 @@
 kotlinc -cp kotlinx-cli-jvm-0.2.0-SNAPSHOT.jar src/com -include-runtime -d app.jar
 amountDefTests=0
 amountSucTests=0
-ex0=0
-ex7=7
 res=0
 
-echo Обычный
-echo Тест -login admin -pass admin -res АВ -role WRITE -ds 2015-12-01 -de 2015-12-02 -vol 15
-echo Expected: 0
-./run.sh "-login" "admin" "-pass" "admin" "-res" "AB" "-role" "WRITE" "-ds" "2015-12-01" "-de" "2015-12-02" "-vol" "15"
+fh(){
+ex=$1
+echo Тест $2 $3 $4 $5 $6 $7 $8 $9
+echo Expected: $ex
+./run.sh $2 $3 $4 $5 $6 $7 $8 $9
 res=$?
 echo $res
 let amountDefTests=amountDefTests+1
-if [ $ex0 -eq $res ]; then
-  let amountSucTests=amountSucTests+1
+if [ $ex -eq $res ];
+ then let amountSucTests=amountSucTests+1
 fi
+}
 
-echo Граничный
-echo Тест -login admin -pass admin -res АВ.C -role READ -ds 2015-12-02 -de 2015-12-01 -vol 15
-echo Expected: 0
-./run.sh "-login" "admin" "-pass" "admin" "-res" "AB.C" "-role" "READ" "-ds" "2015-12-02" "-de" "2015-12-01" "-vol" "15"
-res=$?
-echo $res
-let amountDefTests=amountDefTests+1
-if [ $ex0 -eq $res ]; then
-  let amountSucTests=amountSucTests+1
-fi
 
-echo Ошибочные
-echo Тест -login admin -pass admin -res АВ.C -role READ -ds 2015 -de 2015 -vol 15
-echo Expected: 7
-./run.sh "-login" "admin" "-pass" "admin" "-res" "AB.C" "-role" "READ" "-ds" "2015" "-de" "2015" "-vol" "15"
-res=$?
-echo $res
-let amountDefTests=amountDefTests+1
-if [ $ex7 -eq $res ]; then
-  let amountSucTests=amountSucTests+1
-fi
-echo Тест -login admin -pass admin -res АВ.C -role READ -ds 2015-12-02 -de 2015-12-01 -vol 15
-echo Expected: 7
-./run.sh "-login" "admin" "-pass" "admin" "-res" "AB.C" "-role" "READ" "-ds" "2015-12-02" "-de" "2015-12-01" "-vol" "0,2"
-res=$?
-echo $res
-let amountDefTests=amountDefTests+1
-if [ $ex7 -eq $res ]; then
-  let amountSucTests=amountSucTests+1
-fi
-echo Тест -login admin -pass admin -res АВ.C -role READ -ds 2015-12-02 -de 2015-12-01 -vol 15
-echo Expected: 7
-./run.sh "-login" "admin" "-pass" "admin" "-res" "AB.C" "-role" "READ" "-ds" "2015-12-02" "-de" "2015-12-01" "-vol" "many"
-res=$?
-echo $res
-let amountDefTests=amountDefTests+1
-if [ $ex7 -eq $res ]; then
-  let amountSucTests=amountSucTests+1
-fi
+fh 0 "-login" "admin" "-pass" "admin" "-res" "AB" "-role" "WRITE"
+fh 0 "-login" "admin" "-pass" "admin" "-res" "AB.C" "-role" "READ"
+fh 0 "-login" "user1" "-pass" "user" "-res" "AB.CD.E" "-role" "EXECUTE"
+fh 0 "-login" "admin" "-pass" "admin" "-res" "AB.CD" "-role" "WRITE"
+fh 0 "-login" "admin" "-pass" "admin" "-res" "AB.CD.E" "-role" "WRITE"
+fh 0 "-login" "admin" "-pass" "admin" "-role" "WRITE" "-res" "AB"
+fh 0 "-login" "admin" "-pass" "admin" "-role" "WRITE"
+fh 0 "-res" "AB.CD" "-role" "WRITE" "-login" "admin" "-pass" "admin"
+fh 5 "-login" "admin" "-pass" "admin" "-res" "AB" "-role" "WRREAD"
+fh 6 "-login" "user1" "-pass" "user" "-res" "AB" "-role" "EXECUTE"
+fh 6 "-login" "user1" "-pass" "user" "-res" "AB" "-role" "READ"
+
 
 echo Количество тестов
 echo $amountDefTests
@@ -66,3 +40,8 @@ if [ $amountDefTests -ne $amountSucTests ]; then
 else
   echo ExitProcess 0
 fi
+
+
+
+
+
