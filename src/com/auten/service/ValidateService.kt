@@ -17,14 +17,8 @@ class ValidateService(private val listUsers: List<User>, private val listAccesse
 
     fun isPassCorrect(user: User, pass: String) =
         Hasher.getHash(Hasher.getHash(pass) + user.salt) == Hasher.getHash(user.hash + user.salt)
-
-    fun isUserHasRole(login: String, role: Roles, res: String): Boolean {
-        for (access in listAccesses) {
-            if (accessExist(login, access, res, role))
-                return true
-        }
-        return false
-    }
+    
+   fun isUserHasRole(login: String, role: Roles, res: String) = listAccesses.any { accessExist(login, it, res, role) }
 
     private fun accessExist(
         login: String,
