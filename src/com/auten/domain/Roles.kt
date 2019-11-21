@@ -1,4 +1,4 @@
-package com.auten.softwareengineering
+package com.auten.domain.softwareengineering
 
 enum class Roles {
     WRITE, READ, EXECUTE;

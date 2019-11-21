@@ -1,5 +1,6 @@
-package com.auten.softwareengineering
+package com.auten.service.softwareengineering
 
+import com.auten.domain.softwareengineering.*
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.time.format.DateTimeParseException

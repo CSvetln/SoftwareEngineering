@@ -1,4 +1,4 @@
-package com.auten.softwareengineering
+package com.auten.service.softwareengineering
 
 import java.security.MessageDigest
 

@@ -1,5 +1,6 @@
-package com.auten.softwareengineering
+package com.auten.domain.softwareengineering
 
+import com.auten.service.softwareengineering.ValidateService
 import com.main.softwareengineering.accesses
 import com.main.softwareengineering.users
 import kotlinx.cli.*

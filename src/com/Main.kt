@@ -1,6 +1,7 @@
 package com.main.softwareengineering
 
-import com.auten.softwareengineering.*
+import com.auten.domain.softwareengineering.*
+import com.auten.service.softwareengineering.Hasher
 
 fun main(args: Array<String>) {
 
