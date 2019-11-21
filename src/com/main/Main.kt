@@ -19,9 +19,9 @@ fun main(args: Array<String>) {
 val users = listOf(
         User("admin", Hasher.getHash("admin"), "salt1"),
         User("user1", Hasher.getHash("user"), "salt2"),
-        User("John Doe", Hasher.getHash("jdoe"), "sup3rpaZZ"),
-        User("Jane Row", Hasher.getHash("jrow"), "Qweqrty12"),
-        User("Xxx Yyy",  Hasher.getHash("xxx"), "yyy")
+        User("jdoe", Hasher.getHash("sup3rpaZZ"), "salt3"),
+        User("jrow", Hasher.getHash("Qweqrty12"), "salt4"),
+        User("xxx",  Hasher.getHash("yyy"), "salt5")
 )
 val accesses = listOf(
         Access("admin", Roles.WRITE, "AB"),
