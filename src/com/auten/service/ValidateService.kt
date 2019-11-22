@@ -7,7 +7,7 @@ import java.time.format.DateTimeParseException
 
 class ValidateService(private val listUsers: List<User>, private val listAccesses: List<Access>) {
 
-    private val pat = Regex("[0-9a-z]+")
+    private val pat = Regex("[0-9A-Za-z]+")
 
     fun isLoginValid(login: String) = login.matches(pat)
 
@@ -17,7 +17,7 @@ class ValidateService(private val listUsers: List<User>, private val listAccesse
 
     fun isPassCorrect(user: User, pass: String) =
         Hasher.getHash(Hasher.getHash(pass) + user.salt) == Hasher.getHash(user.hash + user.salt)
-    
+
    fun isUserHasRole(login: String, role: Roles, res: String) = listAccesses.any { accessExist(login, it, res, role) }
 
     private fun accessExist(

@@ -5,9 +5,9 @@ amountSucTests=0
 
 fh(){
 ex=$1
-echo Тест $2 $3 $4 $5
+echo Тест $2
 echo Expected: $ex
-./run.sh $2 $3 $4 $5
+./run.sh $2
 res=$?
 echo $res
 let amountDefTests=amountDefTests+1
@@ -18,13 +18,13 @@ fi
 
 fh 1
 fh 1 "-h"
-fh 1 "-login" "admin"
+fh 1 "-login admin"
 fh 1 "blahblah"
-fh 0 "-login" "admin" "-pass" "admin"
-fh 0 "-pass" "admin" "-login" "admin"
-fh 2 "-login" "user@" "-pass" "123"
-fh 3 "-login" "user2" "-pass" "123"
-fh 4 "-login" "user1" "-pass" "user123"
+fh 0 "-login admin -pass admin"
+fh 0 "-pass admin -login admin"
+fh 2 "-login user@ -pass 123"
+fh 3 "-login user2 -pass 123"
+fh 4 "-login user1 -pass user123"
 
 
 echo Количество тестов

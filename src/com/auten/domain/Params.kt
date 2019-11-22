@@ -54,15 +54,16 @@ class Params(private val args: Array<String>) {
                 ds == null -> exitProcess(7)
                 de == null -> exitProcess(7)
                 vol == null -> exitProcess(7)
+                else-> exitProcess(0)
             }
         }
     }
 
 
-    fun avtorization() {
+    fun autentification() {
         if (args.size < 4)
             exitProcess(1)
-        else if (args.size == 4) {
+        else if (args.size >= 4) {
             val us: User? = validService.findUser(login)
             when {
                 isHelp -> exitProcess(1)
@@ -73,13 +74,13 @@ class Params(private val args: Array<String>) {
 
                 !validService.isPassCorrect(us, pass) -> exitProcess(4)
 
-                else -> exitProcess(0)
+                else -> avtorization()
             }
         }
     }
 
-    fun autentification() {
-        if (args.size != 8)
+    fun avtorization() {
+        if (args.size < 8)
             return
         else {
             when {
@@ -87,7 +88,7 @@ class Params(private val args: Array<String>) {
 
                 !validService.isUserHasRole(login, Roles.valueOf(role), res) -> exitProcess(6)
 
-                else -> exitProcess(0)
+                else -> accounting()
             }
         }
     }

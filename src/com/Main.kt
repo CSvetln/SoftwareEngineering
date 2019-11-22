@@ -7,9 +7,7 @@ fun main(args: Array<String>) {
 
     try {
         val par = Params(args)
-        par.avtorization()
         par.autentification()
-        par.accounting()
 
     } catch (e: Exception) {
         println(e.message)
