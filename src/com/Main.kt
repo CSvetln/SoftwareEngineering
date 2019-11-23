@@ -1,4 +1,4 @@
-package com.main.softwareengineering
+package com.softwareengineering
 
 import com.auten.domain.softwareengineering.*
 import com.auten.interfaces.softwareengineering.IParse
