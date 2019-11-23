@@ -1,13 +1,21 @@
 package com.main.softwareengineering
 
 import com.auten.domain.softwareengineering.*
-import com.auten.service.softwareengineering.Hasher
+import com.auten.interfaces.softwareengineering.IParse
+import com.auten.service.softwareengineering.*
+
 
 fun main(args: Array<String>) {
 
     try {
-        val par = Params(args)
-        par.autentification()
+        val par: IParse = ConsoleParams(args)
+        val enter = EnterService(par)
+        val authen = AuthenticationService(users)
+        val author = AuthorisationService(accesses)
+        val account = AccountingService()
+        enter.authentication(authen)
+        enter.authorisation(author)
+        enter.accounting(account)
 
     } catch (e: Exception) {
         println(e.message)
