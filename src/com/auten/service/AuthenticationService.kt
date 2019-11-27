@@ -5,7 +5,7 @@ import com.auten.domain.softwareengineering.User
 class AuthenticationService(private val listUsers: List<User>) {
     private val pat = Regex("[0-9A-Za-z]+")
 
-     fun isLoginValid(login: String) = login.matches(pat)
+    fun isLoginValid(login: String) = login.matches(pat)
 
 
     fun findUser(login: String) = listUsers.find { it.login == login }

@@ -15,8 +15,8 @@ class AuthorisationService(private val listAccesses: List<Access>) {
     ) = (login == access.login) and isResAccess(access.res, res) and (role == access.role)
 
     private fun isResAccess(res1: String, res2: String) = isResAccess(
-            res1.split('.').toTypedArray(),
-            res2.split('.').toTypedArray()
+        res1.split('.').toTypedArray(),
+        res2.split('.').toTypedArray()
     )
 
 
