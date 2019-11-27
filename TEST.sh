@@ -8,7 +8,7 @@ fh(){
 ex=$1
 echo Тест $2
 echo Expected: $ex
-./run.sh $2
+java -cp "lib/kotlinx-cli-jvm-0.2.0-SNAPSHOT.jar;app.jar" com.softwareengineering.MainKt $2
 res=$?
 echo $res
 let amountDefTests=amountDefTests+1
