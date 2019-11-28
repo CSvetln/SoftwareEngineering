@@ -16,8 +16,8 @@ if [ $ex -eq $res ];
  then let amountSucTests=amountSucTests+1
 fi
 }
-fh 1
-fh 1 "-h"
+fh 0
+fh 0 "-h"
 fh 2 "-login X-X -pass XXX"
 fh 3 "-login XXX -pass XXX"
 fh 4 "-login jdoe -pass XXX"
