@@ -1,4 +1,5 @@
 # SoftwareEngineering
+[![Build Status](https://travis-ci.org/CSvetln/SoftwareEngineering.svg?branch=master)](https://travis-ci.org/CSvetln/SoftwareEngineering)
 ## Synopsis
 
 Данный проект разрабатывается в рамках курса
