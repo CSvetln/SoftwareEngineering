@@ -19,12 +19,10 @@ class ConsoleParams(override val args: Array<String>) : IParse {
     init {
         try {
             parser.parse(args)
-        } catch (e: IllegalStateException) {
+        } catch (e: Exception) {
             exitProcess(1)
         }
-        isHelp = args.isNullOrEmpty() or (args.size == 1) or (login=="") or (pass=="")
-
-
+        isHelp = args.isNullOrEmpty() or (args.size == 1)
     }
 }
 

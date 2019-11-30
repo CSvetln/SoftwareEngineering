@@ -22,11 +22,11 @@ class EnterService(private val par: IParse) {
 
     fun authentication(authen: AuthenticationService) {
         if (par.args.size < 4)
-            exitProcess(1)
+            exitProcess(0)
         else if (par.args.size >= 4) {
             val us: User? = authen.findUser(par.login)
             when {
-                par.isHelp -> exitProcess(1)
+                par.isHelp -> exitProcess(0)
 
                 !authen.isLoginValid(par.login) -> exitProcess(2)
 

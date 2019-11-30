@@ -3,12 +3,18 @@ kotlinc -cp lib/kotlinx-cli-jvm-0.2.0-SNAPSHOT.jar src/com -include-runtime -d a
 amountDefTests=0
 amountSucTests=0
 res=0
+platform='unknown'
+if [ "$(expr substr $(uname -s) 1 10)" == "MINGW64_NT" ]; then
+platform=';'
+else
+  platform=':'
+fi
 
 fh(){
 ex=$1
 echo Тест $2
 echo Expected: $ex
-java -cp "lib/kotlinx-cli-jvm-0.2.0-SNAPSHOT.jar;app.jar" com.softwareengineering.MainKt $2
+java -cp "lib/kotlinx-cli-jvm-0.2.0-SNAPSHOT.jar${platform}app.jar" com.softwareengineering.MainKt $2
 res=$?
 echo $res
 let amountDefTests=amountDefTests+1
