@@ -1,5 +1,4 @@
 #! /bin/bash
-kotlinc -cp lib/kotlinx-cli-jvm-0.2.0-SNAPSHOT.jar src/com -include-runtime -d app.jar
 amountDefTests=0
 amountSucTests=0
 res=0
@@ -9,12 +8,15 @@ platform=';'
 else
   platform=':'
 fi
+libs="lib/kotlinx-cli-jvm-0.2.0-SNAPSHOT.jar${platform}lib/log4j-api-2.12.1.jar${platform}lib/log4j-core-2.12.1.jar"
+kotlinc -verbose -cp "$libs" src/com -include-runtime -d app.jar
+jar -u -f app.jar -m src/META-INF/MANIFEST.MF -C resources .
 
 fh(){
 ex=$1
 echo Тест $2
 echo Expected: $ex
-java -cp "lib/kotlinx-cli-jvm-0.2.0-SNAPSHOT.jar${platform}app.jar" com.softwareengineering.MainKt $2
+java -cp "$libs${platform}app.jar" com.softwareengineering.MainKt $2
 res=$?
 echo $res
 let amountDefTests=amountDefTests+1
@@ -39,6 +41,7 @@ fh 7 "-login jdoe -pass sup3rpaZZ -role READ -res a.b -ds 01-01-2015 -de 2015-12
 fh 7 "-login jdoe -pass sup3rpaZZ -role READ -res a.b -ds 2015-01-01 -de 2015-12-31 -vol XXX"
 fh 3 "-login X -pass X -role READ -res X -ds 2015-01-01 -de 2015-12-31 -vol XXX"
 fh 3 "-login X -pass X -role READ -res X"
+fh 0 "-login admin -pass admin -role READ -res a.b.c"
 
 echo Количество тестов
 echo $amountDefTests
