@@ -8,7 +8,7 @@ platform=';'
 else
   platform=':'
 fi
-libs="lib/kotlinx-cli-jvm-0.2.0-SNAPSHOT.jar${platform}lib/log4j-api-2.12.1.jar${platform}lib/log4j-core-2.12.1.jar"
+libs="lib/kotlinx-cli-jvm-0.2.0-SNAPSHOT.jar${platform}lib/log4j-api-2.12.1.jar${platform}lib/log4j-core-2.12.1.jar${platform}lib/h2-1.4.200.jar"
 kotlinc -verbose -cp "$libs" src/com -include-runtime -d app.jar
 jar -u -f app.jar -m src/META-INF/MANIFEST.MF -C resources .
 

@@ -16,9 +16,8 @@ class AccountingService() {
     }
 
     fun isVolValid(vol: String): Boolean {
-        return try {
-            vol.toInt()
-            true
+        return try{
+            vol.toInt()>0
         } catch (e: Exception) {
             false
         }

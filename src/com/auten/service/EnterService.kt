@@ -3,7 +3,10 @@ package com.auten.service.softwareengineering
 import com.auten.domain.softwareengineering.Roles
 import com.auten.domain.softwareengineering.User
 import com.auten.interfaces.softwareengineering.IParse
+import org.apache.logging.log4j.LogManager
 import kotlin.system.exitProcess
+
+private val logger = LogManager.getLogger(EnterService::class.java)
 
 class EnterService(private val par: IParse) {
 
@@ -12,9 +15,15 @@ class EnterService(private val par: IParse) {
             return
         else {
             when {
-                !account.isDateValid(par.ds) -> exitProcess(7)
-                !account.isDateValid(par.de) -> exitProcess(7)
-                !account.isVolValid(par.vol) -> exitProcess(7)
+                !account.isDateValid(par.ds) -> {
+                    logger.info("Date ${par.ds} is not valid")
+                    exitProcess(7)}
+                !account.isDateValid(par.de) ->{
+                    logger.info("Date ${par.ds} is not valid")
+                    exitProcess(7)}
+                !account.isVolValid(par.vol) -> {
+                    logger.info("Volume ${par.vol} is not valid")
+                    exitProcess(7)}
             }
         }
     }
@@ -28,11 +37,20 @@ class EnterService(private val par: IParse) {
             when {
                 par.isHelp -> exitProcess(0)
 
-                !authen.isLoginValid(par.login) -> exitProcess(2)
+                !authen.isLoginValid(par.login) -> {
+                    logger.info("Login ${par.login} is not valid")
+                    exitProcess(2)
+                }
 
-                us == null -> exitProcess(3)
+                us == null -> {
+                    logger.info("User ${par.login} does not exist")
+                    exitProcess(3)
+                }
 
-                !authen.isPassCorrect(us, par.pass) -> exitProcess(4)
+                !authen.isPassCorrect(us, par.pass) -> {
+                    logger.info("For user ${us.login} password ${par.pass} is not correct")
+                    exitProcess(4)
+                }
 
             }
         }
@@ -43,9 +61,15 @@ class EnterService(private val par: IParse) {
             return
         else {
             when {
-                !Roles.isRoleExist(par.role) -> exitProcess(5)
+                !Roles.isRoleExist(par.role) -> {
+                    logger.info("Role ${par.role} does not exist")
+                    exitProcess(5)
+                }
 
-                !author.isUserHasRole(par.login, Roles.valueOf(par.role), par.res) -> exitProcess(6)
+                !author.isUserHasRole(par.login, Roles.valueOf(par.role), par.res) -> {
+                    logger.info("User ${par.login} does not have access to the resource ${par.res} by role ${par.role}")
+                    exitProcess(6)
+                }
             }
         }
     }
