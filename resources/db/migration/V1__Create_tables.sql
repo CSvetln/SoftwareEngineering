@@ -11,7 +11,7 @@ CREATE TABLE Access (
     FOREIGN KEY (login) REFERENCES User (login)
 );
 
-CREATE TABLE Node (
+CREATE TABLE Node(
     id INT PRIMARY KEY AUTO_INCREMENT,
     parent VARCHAR(25) NOT NULL,
     value VARCHAR(25) NOT NULL,
